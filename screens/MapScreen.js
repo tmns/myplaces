@@ -1,12 +1,28 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { connect } from "react-redux";
+import { View, StyleSheet } from 'react-native';
+import MapView from 'react-native-map-clustering';
+import { Marker } from 'react-native-maps';
 
-export default function MapScreen() {
+import { DEFAULT_LAT, DEFAULT_LONG, DEFAULT_LAT_DELT, DEFAULT_LONG_DELT } from '../constants/Config';
+
+function MapScreen({ places }) {
   return (
-    <ScrollView style={styles.container}>
-      <ExpoLinksView />
-    </ScrollView>
+    <View style={styles.container}>
+      <MapView
+        region={{
+          latitude: DEFAULT_LAT,
+          longitude: DEFAULT_LONG,
+          latitudeDelta: DEFAULT_LAT_DELT,
+          longitudeDelta: DEFAULT_LONG_DELT
+        }}
+        style={styles.map}
+      >
+        {places.map(place => (
+          <Marker coordinate={{ latitude: parseFloat(place.latitude), longitude: parseFloat(place.longitude) }} key={place.id} />
+        ))}
+      </MapView>
+    </View>
   );
 }
 
@@ -17,7 +33,16 @@ MapScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
   },
+  map: {
+    width: "100%",
+    height: "100%",
+  }
 });
+
+const mapStateToProps = state => ({
+  places: state.places.data
+})
+
+export default connect(mapStateToProps)(MapScreen);

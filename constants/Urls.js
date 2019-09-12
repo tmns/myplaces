@@ -1,1 +1,0 @@
-export const PLACES_URL="https://warply.s3.amazonaws.com/data/test_pois.jso";

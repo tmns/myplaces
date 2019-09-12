@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { ListItem } from "../components/ListItem";
-import { PLACES_URL } from "../constants/Urls";
+import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 
 function ListScreen({ places, setPlaces }) {
