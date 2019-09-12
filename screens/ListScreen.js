@@ -7,9 +7,11 @@ import { ListItem } from "../components/ListItem";
 import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 
-function ListScreen({ places, setPlaces }) {
+function ListScreen({ places, setPlaces, navigation }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const location = navigation.getParam("location") 
+  console.log(location);
 
   useEffect(() => {
     async function fetchPlaces() {

@@ -1,5 +1,6 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import { Constants, Location, Permissions } from "expo";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   ScrollView,
@@ -11,6 +12,26 @@ import {
 } from "react-native";
 
 export default function HomeScreen({ navigation }) {
+  const [location, setLocation] = useState({});
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function findCurrentLocation() {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+      if (status !== "granted") {
+        setError(true);
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      setLocation({
+        latitude: location.latitude,
+        longitude: location.longitude
+      });
+    }
+    findCurrentLocation();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -25,6 +46,11 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.getStartedContainer}>
+          {error && (
+            <Text style={styles.getStartedText}>
+              Since you did not allow location access, the app will not be able to sort your places based on proximity.
+            </Text>
+          )}
           <Text style={styles.getStartedText}>Welcome to MyPlaces!</Text>
 
           <Text style={styles.getStartedText}>
@@ -34,7 +60,11 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.helpContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("List")}
+            onPress={() =>
+              navigation.navigate("List", {
+                location
+              })
+            }
             style={styles.helpLink}
           >
             <Button hitSlop title="Get started!" />
@@ -86,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 15
   },
   helpLinkText: {
     fontSize: 14,
