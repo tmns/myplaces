@@ -3,13 +3,19 @@ import { StyleSheet, FlatList, View, Text } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
 import { connect } from "react-redux";
 
+import { ListItem } from "../components/ListItem";
+
 function ListScreen({ places }) {
   return (
     <View style={styles.container}>
       <ExpoLinksView />
       <FlatList
         data={places}
-        renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        renderItem={({ item }) => (
+          <ListItem>
+            <Text style={styles.item}>{item.key}</Text>
+          </ListItem>
+        )}
         keyExtractor={item => item.key}
       />
     </View>
