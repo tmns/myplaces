@@ -1,4 +1,5 @@
 // Haversine Formula -  calculates the distance between two points on a sphere 'as the crow flies'.
+// Adapted from: https://www.geodatasource.com/developers/javascript
 export const getDistance = ({ lat1, lon1, lat2, lon2 }) => {
   const radlat1 = deg2rad(lat1);
   const radlat2 = deg2rad(lat2);
@@ -17,7 +18,6 @@ export const getDistance = ({ lat1, lon1, lat2, lon2 }) => {
   
   // Handle the case of missing data resulting in a NaN
   if (isNaN(distFormatted)) {
-    console.log(distFormatted)
     return "Missing data - could not calculate"
   }
   return distFormatted;
