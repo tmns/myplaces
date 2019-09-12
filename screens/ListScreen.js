@@ -1,23 +1,38 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import React from "react";
+import { StyleSheet, FlatList, View, Text } from "react-native";
+import { ExpoLinksView } from "@expo/samples";
+import { connect } from "react-redux";
 
-export default function ListScreen() {
+function ListScreen({ places }) {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <ExpoLinksView />
-    </ScrollView>
+      <FlatList
+        data={places}
+        renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+        keyExtractor={item => item.key}
+      />
+    </View>
   );
 }
 
 ListScreen.navigationOptions = {
-  title: "List",
+  title: "List"
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
+  item: {
+    color: "red"
+  }
 });
+
+const mapStateToProps = state => ({
+  places: state.places.data
+});
+
+export default connect(mapStateToProps)(ListScreen);

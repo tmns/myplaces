@@ -1,8 +1,10 @@
 const INITIAL_STATE = {
-  data: {
-    hello: "goodbye",
-    something: "else"
-  }
+  data: [
+    {key: "goodbye"},
+    {key: "else"},
+    {key: "hello"},
+    {key: "something"}
+  ]
 }
 
 const placesReducer = (state = INITIAL_STATE, action) => {
