@@ -1,10 +1,10 @@
 import { createBrowserApp } from '@react-navigation/web';
 import { createSwitchNavigator } from 'react-navigation';
 
-import MainTabNavigator from './MainTabNavigator';
+import ListTabNavigator from './ListTabNavigator';
 
 const switchNavigator = createSwitchNavigator({
-  Main: MainTabNavigator,
+  List: ListTabNavigator,
 });
 switchNavigator.path = '';
 

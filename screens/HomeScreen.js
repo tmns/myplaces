@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Button,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -35,16 +36,16 @@ export default function HomeScreen() {
             <Text style={styles.helpLinkText}>
               Help, it didn’t automatically reload!
             </Text>
+            <Button 
+              title="Get started!"
+              onPress={() => this.props.navigation.navigate('ListScreen')} 
+            />
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
   );
 }
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(
