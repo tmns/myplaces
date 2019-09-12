@@ -1,6 +1,8 @@
-import * as WebBrowser from "expo-web-browser";
-import { Constants, Location, Permissions } from "expo";
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   Image,
   ScrollView,
@@ -8,26 +10,36 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  View
+  View,
+  ActivityIndicator
 } from "react-native";
 
-export default function HomeScreen({ navigation }) {
-  const [location, setLocation] = useState({});
+import { setLocation } from '../actions/locationActions';
+
+function HomeScreen({ navigation, location, setLocation }) {
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function findCurrentLocation() {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
       if (status !== "granted") {
+        alert(
+          "Hey! You might want to enable location services to fully benefit from this app!"
+        );
         setError(true);
+      } else {
+        setLoading(true);
+        const geoData = await Location.getCurrentPositionAsync({
+          enableHighAccuracy: true
+        });
+        setLocation({
+          latitude: geoData.coords.latitude,
+          longitude: geoData.coords.longitude
+        });
+        setLoading(false);
       }
-
-      const location = await Location.getCurrentPositionAsync({});
-      setLocation({
-        latitude: location.latitude,
-        longitude: location.longitude
-      });
     }
     findCurrentLocation();
   }, []);
@@ -46,11 +58,6 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.getStartedContainer}>
-          {error && (
-            <Text style={styles.getStartedText}>
-              Since you did not allow location access, the app will not be able to sort your places based on proximity.
-            </Text>
-          )}
           <Text style={styles.getStartedText}>Welcome to MyPlaces!</Text>
 
           <Text style={styles.getStartedText}>
@@ -58,26 +65,33 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("List", {
-                location
-              })
-            }
-            style={styles.helpLink}
-          >
-            <Button hitSlop title="Get started!" />
-          </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          {loading ? (
+            <>
+              <Text style={styles.getStartedText}>Determining Location</Text>
+              <View style={{ flex: 1, padding: 20 }}>
+                <ActivityIndicator />
+              </View>
+            </>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("List", { location })}
+              style={styles.buttonText}
+            >
+              <Button hitSlop title="Get started!" />
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.errorContainer}>
+          {error && (
+            <Text style={styles.getStartedText}>
+              Note: Since you have not allowed location access, the app will not
+              be able to sort your places based on proximity!
+            </Text>
+          )}
         </View>
       </ScrollView>
     </View>
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
   );
 }
 
@@ -111,15 +125,33 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center"
   },
-  helpContainer: {
+  buttonContainer: {
     marginTop: 15,
     alignItems: "center"
   },
-  helpLink: {
-    paddingVertical: 15
+  buttonText: {
+    padding: 30
   },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
+  errorContainer: {
+    marginTop: 100,
+    alignItems: "center",
+    padding: 20
   }
 });
+
+const mapStateToProps = state => ({
+  location: state.location.data
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setLocation
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);

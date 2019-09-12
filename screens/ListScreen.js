@@ -7,10 +7,9 @@ import { ListItem } from "../components/ListItem";
 import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 
-function ListScreen({ places, setPlaces, navigation }) {
+function ListScreen({ location, places, setPlaces }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const location = navigation.getParam("location") 
   console.log(location);
 
   useEffect(() => {
@@ -66,16 +65,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   item: {
-    width: "100%"
+    width: "100%",
+    fontSize: 17,
+    color: "rgba(96,100,109, 1)",
+    lineHeight: 24,
   },
   error: {
-    fontSize: 16,
-    textAlign: "center"
+    fontSize: 17,
+    color: "rgba(96,100,109, 1)",
+    lineHeight: 24,
   }
 });
 
 const mapStateToProps = state => ({
-  places: state.places.data
+  places: state.places.data,
+  location: state.location.data
 });
 
 const mapDispatchToProps = dispatch =>
