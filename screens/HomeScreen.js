@@ -1,5 +1,5 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import * as WebBrowser from "expo-web-browser";
+import React from "react";
 import {
   Image,
   ScrollView,
@@ -7,18 +7,19 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <View style={styles.welcomeContainer}>
           <Image
-            source={require('../assets/images/robot-dev.png')}
+            source={require("../assets/images/robot-dev.png")}
             style={styles.welcomeImage}
           />
         </View>
@@ -32,14 +33,11 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-            <Button 
-              title="Get started!"
-              onPress={() => this.props.navigation.navigate('ListScreen')} 
-            />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("List")}
+            style={styles.helpLink}
+          >
+            <Button hitSlop title="Get started!" />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -49,49 +47,49 @@ export default function HomeScreen() {
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
+    "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   welcomeContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 20
   },
   welcomeImage: {
     width: 100,
     height: 80,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginTop: 3,
-    marginLeft: -10,
+    marginLeft: -10
   },
   getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+    alignItems: "center",
+    marginHorizontal: 50
   },
   getStartedText: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    color: "rgba(96,100,109, 1)",
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: "center"
   },
   helpContainer: {
     marginTop: 15,
-    alignItems: 'center',
+    alignItems: "center"
   },
   helpLink: {
     paddingVertical: 15,
   },
   helpLinkText: {
     fontSize: 14,
-    color: '#2e78b7',
-  },
+    color: "#2e78b7"
+  }
 });

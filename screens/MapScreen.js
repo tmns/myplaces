@@ -11,7 +11,7 @@ export default function MapScreen() {
 }
 
 MapScreen.navigationOptions = {
-  title: 'Links',
+  title: 'Map',
 };
 
 const styles = StyleSheet.create({

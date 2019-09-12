@@ -11,7 +11,7 @@ export default function ListScreen() {
 }
 
 ListScreen.navigationOptions = {
-  title: 'Links',
+  title: "List",
 };
 
 const styles = StyleSheet.create({

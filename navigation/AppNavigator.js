@@ -1,10 +1,16 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from "react-navigation";
 
-import ListTabNavigator from './ListTabNavigator';
+import HomeScreen from "../screens/HomeScreen";
+import ListTabNavigator from "./ListTabNavigator";
 
 export default createAppContainer(
-  createSwitchNavigator({
-    List: ListTabNavigator,
-  })
+  createStackNavigator(
+    {
+      Home: HomeScreen,
+      List: ListTabNavigator
+    },
+    {
+      initialRouteName: "Home"
+    }
+  )
 );
