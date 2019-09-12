@@ -25,9 +25,6 @@ function HomeScreen({ navigation, location, setLocation }) {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
       if (status !== "granted") {
-        alert(
-          "Hey! You might want to enable location services to fully benefit from this app!"
-        );
         setError(true);
       } else {
         setLoading(true);

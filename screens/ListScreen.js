@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, FlatList, View, Text, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Text,
+  ActivityIndicator
+} from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { ListItem } from "../components/ListItem";
 import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
+import { getDistance } from "../utils";
 
-function ListScreen({ location, places, setPlaces }) {
+function ListScreen({ granted, location, places, setPlaces }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   console.log(location);
@@ -18,7 +25,28 @@ function ListScreen({ location, places, setPlaces }) {
       try {
         const response = await fetch(PLACES_URL);
         const data = await response.json();
-        setPlaces(data);
+        let dataWithDistance, sortedData;
+        if (granted) {
+          dataWithDistance = data.map(item => ({
+            ...item,
+            distance: getDistance({
+              lat1: location.latitude,
+              lat2: item.latitude,
+              lon1: location.longitude,
+              lon2: item.longitude
+            })
+          }));
+          sortedData = dataWithDistance.sort((a, b) => a.distance - b.distance);
+        } else {
+          sortedData = data.sort((a, b) => {
+            let aLower = a.address.toLowerCase();
+            let bLower = b.address.toLowerCase();
+            if (aLower < bLower) return -1;
+            if (aLower > bLower) return 1;
+            return 0;
+          });
+        }
+        setPlaces(sortedData);
       } catch (err) {
         console.log(err);
         setError(true);
@@ -37,15 +65,18 @@ function ListScreen({ location, places, setPlaces }) {
         </View>
       )}
       {error && (
-        <Text style={styles.error}>Sorry, there was an error loading your places.</Text>
+        <Text style={styles.error}>
+          Sorry, there was an error loading your places.
+        </Text>
       )}
       <FlatList
         data={places}
         renderItem={({ item }) => (
           <ListItem>
             <Text style={styles.item}>Address: {item.address}</Text>
-            <Text style={styles.item}>Latitude: {item.latitude}</Text>
-            <Text style={styles.item}>Longitude: {item.longitude}</Text>
+            <Text style={styles.item}>
+              Distance: {granted ? item.distance + " km" : ""}
+            </Text>
           </ListItem>
         )}
         keyExtractor={item => item.id}
@@ -68,18 +99,19 @@ const styles = StyleSheet.create({
     width: "100%",
     fontSize: 17,
     color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
+    lineHeight: 24
   },
   error: {
     fontSize: 17,
     color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
+    lineHeight: 24
   }
 });
 
 const mapStateToProps = state => ({
   places: state.places.data,
-  location: state.location.data
+  location: state.location.data,
+  granted: state.location.granted
 });
 
 const mapDispatchToProps = dispatch =>

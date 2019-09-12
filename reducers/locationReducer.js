@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-  data: {}
+  data: {},
+  granted: false
 }
 
 const locationReducer = (state = INITIAL_STATE, action) => {
@@ -7,7 +8,8 @@ const locationReducer = (state = INITIAL_STATE, action) => {
     case 'SET_LOCATION':
       return {
         ...state,
-        data: action.payload
+        data: action.payload,
+        granted: true
       }
     default:
       return state;
