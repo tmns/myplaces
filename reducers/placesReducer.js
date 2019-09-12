@@ -1,14 +1,14 @@
 const INITIAL_STATE = {
-  data: [
-    {key: "goodbye"},
-    {key: "else"},
-    {key: "hello"},
-    {key: "something"}
-  ]
+  data: []
 }
 
 const placesReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
+    case 'SET_PLACES':
+      return {
+        ...state,
+        data: action.payload
+      }
     default:
       return state;
   }

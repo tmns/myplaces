@@ -9,7 +9,7 @@ export function ListItem(props) {
 
 const styles = StyleSheet.create({
   rowContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#FFF',
     height: 100,
     padding: 10,
