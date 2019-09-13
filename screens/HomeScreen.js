@@ -69,12 +69,15 @@ export function HomeScreen({
       >
         <View style={styles.welcomeContainer} testID="welcome-container">
           <TouchableOpacity
+            accessibility={true}
+            accessibilityLabel="Tap me to toggle dark mode!"
             onPress={() => {
               setDarkMode(!darkMode);
             }}
             testID="set-darkmode-btn"
           >
             <Ionicons
+              accessibilityRole="button"
               name={darkModeIcon}
               size={24}
               color={darkMode ? "#fff" : "#000"}
@@ -104,6 +107,8 @@ export function HomeScreen({
             </>
           ) : (
             <TouchableOpacity
+              accessibility={true}
+              accessibilityLabel="Tap me to see your list of places!"
               onPress={() => navigation.navigate("List", { location })}
               style={styles.buttonText}
             >

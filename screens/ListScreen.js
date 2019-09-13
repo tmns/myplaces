@@ -90,10 +90,18 @@ export function ListScreen({
         data={places}
         renderItem={({ item }) => (
           <TouchableOpacity
+            accessibility={true}
+            accessibilityLabel="Tap me to see this place on the map!"
             onPress={() => navigation.navigate("Map", { place: item })}
           >
-            <ListItem darkMode={darkMode} testID="list-item">
-              <Text style={styles.itemAddress} testID="item-address">{item.address}</Text>
+            <ListItem
+              darkMode={darkMode}
+              testID="list-item"
+              accessibilityRole="button"
+            >
+              <Text style={styles.itemAddress} testID="item-address">
+                {item.address}
+              </Text>
               <Text style={styles.itemDistance} testID="item-distance">
                 {granted ? item.distance + " km" : ""}
               </Text>
