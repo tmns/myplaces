@@ -72,9 +72,9 @@ function ListScreen({ granted, location, places, setPlaces, darkMode }) {
         data={places}
         renderItem={({ item }) => (
           <ListItem darkMode={darkMode}>
-            <Text style={styles.item}>Address: {item.address}</Text>
-            <Text style={styles.item}>
-              Distance: {granted ? item.distance + " km" : ""}
+            <Text style={styles.itemAddress}>{item.address}</Text>
+            <Text style={styles.itemDistance}>
+              {granted ? item.distance + " km" : ""}
             </Text>
           </ListItem>
         )}
@@ -99,9 +99,18 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: "#000"
   },
-  item: {
+  itemAddress: {
+    textAlign: "center",
     width: "100%",
-    fontSize: 17,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "rgba(96,100,109, 1)",
+    lineHeight: 24
+  },
+  itemDistance: {
+    textAlign: "center",
+    width: "100%",
+    fontSize: 20,
     color: "rgba(96,100,109, 1)",
     lineHeight: 24
   },
