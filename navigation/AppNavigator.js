@@ -1,9 +1,11 @@
 import { createAppContainer, createStackNavigator } from "react-navigation";
+import React from 'react';
+import { connect } from 'react-redux';
 
 import HomeScreen from "../screens/HomeScreen";
 import ListTabNavigator from "./ListTabNavigator";
 
-export default createAppContainer(
+let AppContainer = createAppContainer(
   createStackNavigator(
     {
       Home: HomeScreen,
@@ -21,3 +23,11 @@ export default createAppContainer(
     }
   )
 );
+
+const mapStateToProps = state => ({
+  darkMode: state.darkMode.isEnabled
+})
+
+const containerWithTheme = ({ darkMode }) => <AppContainer theme={darkMode ? "dark" : "light"} />
+
+export default connect(mapStateToProps)(containerWithTheme);

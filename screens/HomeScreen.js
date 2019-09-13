@@ -60,7 +60,6 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
         <View style={styles.welcomeContainer}>
           <TouchableOpacity onPress={() => {
             setDarkMode(!darkMode);
-            console.log('darkmode status: ' + darkMode)
           }
           }>
             <Ionicons

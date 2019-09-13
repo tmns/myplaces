@@ -67,19 +67,10 @@ MapStack.navigationOptions = {
 
 MapStack.path = "";
 
-const tabNavigator = createBottomTabNavigator(
-  {
-    ListStack,
-    MapStack
-  },
-  {
-    tabBarOptions: {
-      style: {
-        backgroundColor: "#082016"
-      }
-    }
-  }
-);
+const tabNavigator = createBottomTabNavigator({
+  ListStack,
+  MapStack
+});
 
 tabNavigator.path = "";
 
