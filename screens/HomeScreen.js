@@ -90,6 +90,7 @@ function HomeScreen({ navigation, location, setLocation }) {
 
 HomeScreen.navigationOptions = {
   title: "MyPlaces",
+  headerBackTitle: "Home"
 }
 
 const styles = StyleSheet.create({
