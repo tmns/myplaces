@@ -1,12 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-export function ListItem(props) {
+export function ListItem({ darkMode, children}) {
   return (
     <View
-      style={props.darkMode ? styles.rowContainerDark : styles.rowContainer}
+      style={darkMode ? styles.rowContainerDark : styles.rowContainer}
+      testID="list-item"
     >
-      {props.children}
+      {children}
     </View>
   );
 }
