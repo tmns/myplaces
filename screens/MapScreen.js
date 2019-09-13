@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { View, StyleSheet } from "react-native";
 import MapView from "react-native-map-clustering";
@@ -11,8 +11,8 @@ import {
   DEFAULT_LON_DELT
 } from "../constants/Config";
 
-function MapScreen({ navigation, places }) {
-  let selected = navigation.getParam("place") 
+export function MapScreen({ navigation, places }) {
+  let selected = navigation.getParam("place");
 
   const animate = data => {
     mapView.root.animateToRegion(data, 2000);
@@ -26,7 +26,7 @@ function MapScreen({ navigation, places }) {
         longitude: parseFloat(selected.longitude) || DEFAULT_LON,
         latitudeDelta: 1,
         longitudeDelta: 1
-      });  
+      });
     }
   }, [selected]);
 
@@ -41,6 +41,7 @@ function MapScreen({ navigation, places }) {
         }}
         style={styles.map}
         ref={ref => (mapView = ref)}
+        testID="map-view"
       >
         {places.map(place => (
           <Marker
@@ -49,6 +50,7 @@ function MapScreen({ navigation, places }) {
               longitude: parseFloat(place.longitude)
             }}
             key={place.id}
+            testID="map-marker"
           />
         ))}
       </MapView>
