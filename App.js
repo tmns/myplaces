@@ -21,6 +21,7 @@ export default function App(props) {
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)}
+        testID="app-loading"
       />
     );
   } else {
@@ -52,7 +53,7 @@ function handleLoadingError(error) {
   console.warn(error);
 }
 
-function handleFinishLoading(setLoadingComplete) {
+export function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
 }
 
