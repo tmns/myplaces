@@ -23,6 +23,10 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
+  // Attempt to determine user's lcoation
+  // 1) Ask user for location permissions
+  // 2) If granted, determine coordinates and store them in Redux
+  // 3) Else, set an error / info message for the user
   useEffect(() => {
     async function findCurrentLocation() {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);

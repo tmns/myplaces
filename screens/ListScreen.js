@@ -26,6 +26,15 @@ function ListScreen({
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  // Attempt to fetch places from API endpoint and store them in Redux
+  // 1) Fetch places from API endpoint
+  // 2) If location permissions granted, for each location
+  //   a) Calculate distance between user location and retrieved location
+  //   b) Sort places based on distance 
+  // 3) Else, for each location
+  //   a) Sort places alphabetically based on address
+  // 4) Store in redux
+  // 5) If error, display error message to user
   useEffect(() => {
     async function fetchPlaces() {
       setLoading(true);

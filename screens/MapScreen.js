@@ -18,6 +18,7 @@ function MapScreen({ navigation, places }) {
     mapView.root.animateToRegion(data, 2000);
   };
 
+  // Call animate function every time user selects a place
   useEffect(() => {
     if (selected) {
       animate({
