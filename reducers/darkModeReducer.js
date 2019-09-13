@@ -3,10 +3,10 @@ import { AsyncStorage } from "react-native";
 const setUserSetting = async darkMode => {
   try {
     await AsyncStorage.setItem("darkmode", darkMode.toString());
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
 const INITIAL_STATE = {
   isEnabled: false
