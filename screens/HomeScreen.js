@@ -49,17 +49,13 @@ function HomeScreen({ navigation, location, setLocation }) {
       >
         <View style={styles.welcomeContainer}>
           <Image
-            source={require("../assets/images/robot-dev.png")}
+            source={require("../assets/images/globe.png")}
             style={styles.welcomeImage}
           />
         </View>
 
         <View style={styles.getStartedContainer}>
           <Text style={styles.getStartedText}>Welcome to MyPlaces!</Text>
-
-          <Text style={styles.getStartedText}>
-            Get started by pressing the button below!
-          </Text>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -92,6 +88,10 @@ function HomeScreen({ navigation, location, setLocation }) {
   );
 }
 
+HomeScreen.navigationOptions = {
+  title: "MyPlaces",
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 200,
+    height: 180,
     resizeMode: "contain",
     marginTop: 3,
     marginLeft: -10

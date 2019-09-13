@@ -86,7 +86,7 @@ function ListScreen({ granted, location, places, setPlaces }) {
 }
 
 ListScreen.navigationOptions = {
-  title: "List"
+  title: "List",
 };
 
 const styles = StyleSheet.create({

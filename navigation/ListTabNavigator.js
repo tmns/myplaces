@@ -6,10 +6,21 @@ import TabBarIcon from '../components/TabBarIcon';
 import ListScreen from '../screens/ListScreen';
 import MapScreen from '../screens/MapScreen';
 
-const config = Platform.select({
+const platformConfig = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+const config = {
+  ...platformConfig,
+  defaultNavigationOptions: {
+    headerTitleStyle: {
+      fontFamily: "Pacifico",
+      color: "rgba(37, 204, 247, 1)",
+      fontSize: 22
+    }
+  }
+}
 
 const ListStack = createStackNavigator(
   {
