@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { View, StyleSheet } from 'react-native';
-import MapView from 'react-native-map-clustering';
-import { Marker } from 'react-native-maps';
+import { View, StyleSheet } from "react-native";
+import MapView from "react-native-map-clustering";
+import { Marker } from "react-native-maps";
 
-import { DEFAULT_LAT, DEFAULT_LONG, DEFAULT_LAT_DELT, DEFAULT_LONG_DELT } from '../constants/Config';
+import {
+  DEFAULT_LAT,
+  DEFAULT_LONG,
+  DEFAULT_LAT_DELT,
+  DEFAULT_LONG_DELT
+} from "../constants/Config";
 
-function MapScreen({ places }) {
+function MapScreen({ navigation, places }) {
+  let selected = navigation.getParam("item") 
+
+  const animate = data => {
+    mapView.root.animateToRegion(data, 2000);
+  };
+
+  useEffect(() => {
+    animate({
+      latitude: parseFloat(selected.latitude) || DEFAULT_LAT,
+      longitude: parseFloat(selected.longitude) || DEFAULT_LONG,
+      latitudeDelta: 1,
+      longitudeDelta: 1
+    });
+  }, [selected]);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -17,9 +37,16 @@ function MapScreen({ places }) {
           longitudeDelta: DEFAULT_LONG_DELT
         }}
         style={styles.map}
+        ref={ref => (mapView = ref)}
       >
         {places.map(place => (
-          <Marker coordinate={{ latitude: parseFloat(place.latitude), longitude: parseFloat(place.longitude) }} key={place.id} />
+          <Marker
+            coordinate={{
+              latitude: parseFloat(place.latitude),
+              longitude: parseFloat(place.longitude)
+            }}
+            key={place.id}
+          />
         ))}
       </MapView>
     </View>
@@ -27,22 +54,22 @@ function MapScreen({ places }) {
 }
 
 MapScreen.navigationOptions = {
-  title: 'Map',
+  title: "Map"
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   map: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   }
 });
 
 const mapStateToProps = state => ({
   places: state.places.data
-})
+});
 
 export default connect(mapStateToProps)(MapScreen);

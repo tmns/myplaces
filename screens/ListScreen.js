@@ -4,7 +4,8 @@ import {
   FlatList,
   View,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -14,7 +15,14 @@ import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 import { getDistance } from "../utils";
 
-function ListScreen({ granted, location, places, setPlaces, darkMode }) {
+function ListScreen({
+  navigation,
+  granted,
+  location,
+  places,
+  setPlaces,
+  darkMode
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -71,12 +79,16 @@ function ListScreen({ granted, location, places, setPlaces, darkMode }) {
       <FlatList
         data={places}
         renderItem={({ item }) => (
-          <ListItem darkMode={darkMode}>
-            <Text style={styles.itemAddress}>{item.address}</Text>
-            <Text style={styles.itemDistance}>
-              {granted ? item.distance + " km" : ""}
-            </Text>
-          </ListItem>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Map", { item })}
+          >
+            <ListItem darkMode={darkMode}>
+              <Text style={styles.itemAddress}>{item.address}</Text>
+              <Text style={styles.itemDistance}>
+                {granted ? item.distance + " km" : ""}
+              </Text>
+            </ListItem>
+          </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
       />
@@ -85,7 +97,7 @@ function ListScreen({ granted, location, places, setPlaces, darkMode }) {
 }
 
 ListScreen.navigationOptions = {
-  title: "List",
+  title: "List"
 };
 
 const styles = StyleSheet.create({
