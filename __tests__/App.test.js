@@ -10,7 +10,7 @@ jest.mock("expo", () => ({
 
 jest.mock("../navigation/AppNavigator", () => "AppNavigator");
 
-describe("App", () => {
+describe("<App />", () => {
   jest.useFakeTimers();
 
   beforeEach(() => {
