@@ -1,7 +1,7 @@
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
-import { Ionicons } from '@expo/vector-icons';
-import { Platform } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { Platform } from "react-native";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -16,10 +16,16 @@ import {
   ActivityIndicator
 } from "react-native";
 
-import { setLocation } from '../actions/locationActions';
-import { setDarkMode } from '../actions/darkModeActions';
+import { setLocation } from "../actions/locationActions";
+import { setDarkMode } from "../actions/darkModeActions";
 
-function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }) {
+export function HomeScreen({
+  navigation,
+  location,
+  setLocation,
+  darkMode,
+  setDarkMode
+}) {
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -50,9 +56,9 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
 
   // determine darkmode icon name
   if (darkMode) {
-    darkModeIcon = Platform.OS === 'ios' ? "ios-sunny" : "md-sunny" 
+    darkModeIcon = Platform.OS === "ios" ? "ios-sunny" : "md-sunny";
   } else {
-    darkModeIcon = Platform.OS === 'ios' ? "ios-moon" : "md-moon"
+    darkModeIcon = Platform.OS === "ios" ? "ios-moon" : "md-moon";
   }
 
   return (
@@ -61,11 +67,13 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
         style={darkMode ? styles.containerDark : styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.welcomeContainer}>
-          <TouchableOpacity onPress={() => {
-            setDarkMode(!darkMode);
-          }
-          }>
+        <View style={styles.welcomeContainer} testID="welcome-container">
+          <TouchableOpacity
+            onPress={() => {
+              setDarkMode(!darkMode);
+            }}
+            testID="set-darkmode-btn"
+          >
             <Ionicons
               name={darkModeIcon}
               size={24}
@@ -73,7 +81,11 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
             />
           </TouchableOpacity>
           <Image
-            source={darkMode ? require("../assets/images/globeDark.png") : require("../assets/images/globe.png")}
+            source={
+              darkMode
+                ? require("../assets/images/globeDark.png")
+                : require("../assets/images/globe.png")
+            }
             style={styles.welcomeImage}
           />
         </View>
@@ -95,7 +107,7 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
               onPress={() => navigation.navigate("List", { location })}
               style={styles.buttonText}
             >
-              <Button hitSlop title="Get started!" />
+              <Button hitSlop title="Get started!" testID="get-started-btn" />
             </TouchableOpacity>
           )}
         </View>
@@ -114,8 +126,8 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
 
 HomeScreen.navigationOptions = {
   title: "MyPlaces",
-  headerBackTitle: "Home",
-}
+  headerBackTitle: "Home"
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -138,7 +150,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 180,
     resizeMode: "contain",
-    marginTop: 3,
+    marginTop: 3
   },
   getStartedContainer: {
     alignItems: "center",
