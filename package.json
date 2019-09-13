@@ -10,6 +10,10 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|sentry-expo|native-base)"
     ],
@@ -47,6 +51,7 @@
   "devDependencies": {
     "babel-preset-expo": "^6.0.0",
     "jest-expo": "^34.0.0",
+    "jest-fetch-mock": "^2.1.2",
     "react-native-testing-library": "^1.11.1",
     "react-test-renderer": "^16.8.6"
   },

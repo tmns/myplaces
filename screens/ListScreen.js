@@ -15,7 +15,7 @@ import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 import { getDistance } from "../utils";
 
-function ListScreen({
+export function ListScreen({
   navigation,
   granted,
   location,
@@ -30,7 +30,7 @@ function ListScreen({
   // 1) Fetch places from API endpoint
   // 2) If location permissions granted, for each location
   //   a) Calculate distance between user location and retrieved location
-  //   b) Sort places based on distance 
+  //   b) Sort places based on distance
   // 3) Else, for each location
   //   a) Sort places alphabetically based on address
   // 4) Store in redux
@@ -86,14 +86,15 @@ function ListScreen({
         </Text>
       )}
       <FlatList
+        testID="list-container"
         data={places}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("Map", { place: item })}
           >
-            <ListItem darkMode={darkMode}>
-              <Text style={styles.itemAddress}>{item.address}</Text>
-              <Text style={styles.itemDistance}>
+            <ListItem darkMode={darkMode} testID="list-item">
+              <Text style={styles.itemAddress} testID="item-address">{item.address}</Text>
+              <Text style={styles.itemDistance} testID="item-distance">
                 {granted ? item.distance + " km" : ""}
               </Text>
             </ListItem>
