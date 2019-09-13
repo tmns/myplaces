@@ -1,5 +1,7 @@
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import { Ionicons } from '@expo/vector-icons';
+import { Platform } from 'react-native';
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -15,8 +17,9 @@ import {
 } from "react-native";
 
 import { setLocation } from '../actions/locationActions';
+import { setDarkMode } from '../actions/darkModeActions';
 
-function HomeScreen({ navigation, location, setLocation }) {
+function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,15 +44,33 @@ function HomeScreen({ navigation, location, setLocation }) {
     findCurrentLocation();
   }, []);
 
+  // determine darkmode icon name
+  if (darkMode) {
+    darkModeIcon = Platform.OS === 'ios' ? "ios-sunny" : "md-sunny" 
+  } else {
+    darkModeIcon = Platform.OS === 'ios' ? "ios-moon" : "md-moon"
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={darkMode ? styles.containerDark : styles.container}>
       <ScrollView
-        style={styles.container}
+        style={darkMode ? styles.containerDark : styles.container}
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.welcomeContainer}>
+          <TouchableOpacity onPress={() => {
+            setDarkMode(!darkMode);
+            console.log('darkmode status: ' + darkMode)
+          }
+          }>
+            <Ionicons
+              name={darkModeIcon}
+              size={24}
+              color={darkMode ? "#fff" : "#000"}
+            />
+          </TouchableOpacity>
           <Image
-            source={require("../assets/images/globe.png")}
+            source={darkMode ? require("../assets/images/globeDark.png") : require("../assets/images/globe.png")}
             style={styles.welcomeImage}
           />
         </View>
@@ -90,13 +111,17 @@ function HomeScreen({ navigation, location, setLocation }) {
 
 HomeScreen.navigationOptions = {
   title: "MyPlaces",
-  headerBackTitle: "Home"
+  headerBackTitle: "Home",
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: "#082016"
   },
   contentContainer: {
     paddingTop: 30
@@ -111,7 +136,6 @@ const styles = StyleSheet.create({
     height: 180,
     resizeMode: "contain",
     marginTop: 3,
-    marginLeft: -10
   },
   getStartedContainer: {
     alignItems: "center",
@@ -124,27 +148,29 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   buttonContainer: {
-    marginTop: 15,
+    marginTop: 10,
     alignItems: "center"
   },
   buttonText: {
     padding: 30
   },
   errorContainer: {
-    marginTop: 100,
+    marginTop: 80,
     alignItems: "center",
     padding: 20
   }
 });
 
 const mapStateToProps = state => ({
-  location: state.location.data
+  location: state.location.data,
+  darkMode: state.darkMode.isEnabled
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setLocation
+      setLocation,
+      setDarkMode
     },
     dispatch
   );

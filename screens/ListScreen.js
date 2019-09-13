@@ -14,10 +14,9 @@ import { PLACES_URL } from "../constants/Config";
 import { setPlaces } from "../actions/placesActions";
 import { getDistance } from "../utils";
 
-function ListScreen({ granted, location, places, setPlaces }) {
+function ListScreen({ granted, location, places, setPlaces, darkMode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  console.log(location);
 
   useEffect(() => {
     async function fetchPlaces() {
@@ -58,7 +57,7 @@ function ListScreen({ granted, location, places, setPlaces }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={darkMode ? styles.containerDark : styles.container}>
       {loading && (
         <View style={{ flex: 1, padding: 20 }}>
           <ActivityIndicator />
@@ -72,7 +71,7 @@ function ListScreen({ granted, location, places, setPlaces }) {
       <FlatList
         data={places}
         renderItem={({ item }) => (
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <Text style={styles.item}>Address: {item.address}</Text>
             <Text style={styles.item}>
               Distance: {granted ? item.distance + " km" : ""}
@@ -95,6 +94,11 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: "#fff"
   },
+  containerDark: {
+    flex: 1,
+    paddingTop: 15,
+    backgroundColor: "#000"
+  },
   item: {
     width: "100%",
     fontSize: 17,
@@ -111,7 +115,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   places: state.places.data,
   location: state.location.data,
-  granted: state.location.granted
+  granted: state.location.granted,
+  darkMode: state.darkMode.isEnabled
 });
 
 const mapDispatchToProps = dispatch =>
