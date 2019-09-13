@@ -3,6 +3,7 @@ import * as Permissions from "expo-permissions";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 import React, { useState, useEffect } from "react";
+import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -29,6 +30,30 @@ export function HomeScreen({
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
+  //  Retrieve user's preferred darkMode setting AsyncStorage
+  useEffect(() => {
+    async function retrieveUserSetting() {
+      try {
+        const userDarkMode = await AsyncStorage.getItem("darkmode");
+        if (userDarkMode === "true") {
+          setDarkMode(true);
+        } else {
+          setDarkMode(false);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    retrieveUserSetting();
+  }, []);
+
+  // determine darkmode icon name
+  if (darkMode) {
+    darkModeIcon = Platform.OS === "ios" ? "ios-sunny" : "md-sunny";
+  } else {
+    darkModeIcon = Platform.OS === "ios" ? "ios-moon" : "md-moon";
+  }
+
   // Attempt to determine user's lcoation
   // 1) Ask user for location permissions
   // 2) If granted, determine coordinates and store them in Redux
@@ -54,13 +79,6 @@ export function HomeScreen({
     findCurrentLocation();
   }, []);
 
-  // determine darkmode icon name
-  if (darkMode) {
-    darkModeIcon = Platform.OS === "ios" ? "ios-sunny" : "md-sunny";
-  } else {
-    darkModeIcon = Platform.OS === "ios" ? "ios-moon" : "md-moon";
-  }
-
   return (
     <View style={darkMode ? styles.containerDark : styles.container}>
       <ScrollView
@@ -71,7 +89,7 @@ export function HomeScreen({
           <TouchableOpacity
             accessibility={true}
             accessibilityLabel="Tap me to toggle dark mode!"
-            onPress={() => {
+            onPress={async () => {
               setDarkMode(!darkMode);
             }}
             testID="set-darkmode-btn"

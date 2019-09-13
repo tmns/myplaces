@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --coverage --watchAll --env=jsdom"
+    "test": "jest --coverage --watchAll"
   },
   "jest": {
     "preset": "jest-expo",
