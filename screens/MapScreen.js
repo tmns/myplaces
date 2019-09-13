@@ -12,19 +12,21 @@ import {
 } from "../constants/Config";
 
 function MapScreen({ navigation, places }) {
-  let selected = navigation.getParam("item") 
+  let selected = navigation.getParam("place") 
 
   const animate = data => {
     mapView.root.animateToRegion(data, 2000);
   };
 
   useEffect(() => {
-    animate({
-      latitude: parseFloat(selected.latitude) || DEFAULT_LAT,
-      longitude: parseFloat(selected.longitude) || DEFAULT_LONG,
-      latitudeDelta: 1,
-      longitudeDelta: 1
-    });
+    if (selected) {
+      animate({
+        latitude: parseFloat(selected.latitude) || DEFAULT_LAT,
+        longitude: parseFloat(selected.longitude) || DEFAULT_LONG,
+        latitudeDelta: 1,
+        longitudeDelta: 1
+      });  
+    }
   }, [selected]);
 
   return (
@@ -54,7 +56,7 @@ function MapScreen({ navigation, places }) {
 }
 
 MapScreen.navigationOptions = {
-  title: "Map"
+  title: "MyMap"
 };
 
 const styles = StyleSheet.create({

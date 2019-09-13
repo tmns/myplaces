@@ -80,7 +80,7 @@ function ListScreen({
         data={places}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Map", { item })}
+            onPress={() => navigation.navigate("Map", { place: item })}
           >
             <ListItem darkMode={darkMode}>
               <Text style={styles.itemAddress}>{item.address}</Text>
@@ -97,7 +97,7 @@ function ListScreen({
 }
 
 ListScreen.navigationOptions = {
-  title: "List"
+  title: "MyList"
 };
 
 const styles = StyleSheet.create({

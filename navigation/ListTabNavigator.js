@@ -33,7 +33,7 @@ const ListStack = createStackNavigator(
 );
 
 ListStack.navigationOptions = {
-  tabBarLabel: "List",
+  tabBarLabel: "MyList",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -56,7 +56,7 @@ const MapStack = createStackNavigator(
 );
 
 MapStack.navigationOptions = {
-  tabBarLabel: "Map",
+  tabBarLabel: "MyMap",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
