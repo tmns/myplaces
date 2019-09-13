@@ -21,7 +21,7 @@ import { setDarkMode } from '../actions/darkModeActions';
 
 function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }) {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     async function findCurrentLocation() {
@@ -79,7 +79,7 @@ function HomeScreen({ navigation, location, setLocation, darkMode, setDarkMode }
         </View>
 
         <View style={styles.buttonContainer}>
-          {loading ? (
+          {isLoading ? (
             <>
               <Text style={styles.getStartedText}>Determining Location</Text>
               <View style={{ flex: 1, padding: 20 }}>

@@ -23,7 +23,7 @@ function ListScreen({
   setPlaces,
   darkMode
 }) {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function ListScreen({
 
   return (
     <View style={darkMode ? styles.containerDark : styles.container}>
-      {loading && (
+      {isLoading && (
         <View style={{ flex: 1, padding: 20 }}>
           <ActivityIndicator />
         </View>
