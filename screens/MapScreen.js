@@ -6,9 +6,9 @@ import { Marker } from "react-native-maps";
 
 import {
   DEFAULT_LAT,
-  DEFAULT_LONG,
+  DEFAULT_LON,
   DEFAULT_LAT_DELT,
-  DEFAULT_LONG_DELT
+  DEFAULT_LON_DELT
 } from "../constants/Config";
 
 function MapScreen({ navigation, places }) {
@@ -22,7 +22,7 @@ function MapScreen({ navigation, places }) {
     if (selected) {
       animate({
         latitude: parseFloat(selected.latitude) || DEFAULT_LAT,
-        longitude: parseFloat(selected.longitude) || DEFAULT_LONG,
+        longitude: parseFloat(selected.longitude) || DEFAULT_LON,
         latitudeDelta: 1,
         longitudeDelta: 1
       });  
@@ -34,9 +34,9 @@ function MapScreen({ navigation, places }) {
       <MapView
         region={{
           latitude: DEFAULT_LAT,
-          longitude: DEFAULT_LONG,
+          longitude: DEFAULT_LON,
           latitudeDelta: DEFAULT_LAT_DELT,
-          longitudeDelta: DEFAULT_LONG_DELT
+          longitudeDelta: DEFAULT_LON_DELT
         }}
         style={styles.map}
         ref={ref => (mapView = ref)}
