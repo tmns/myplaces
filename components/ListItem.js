@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-export function ListItem({ darkMode, children}) {
+export function ListItem({ darkMode, children }) {
   return (
     <View
       style={darkMode ? styles.rowContainerDark : styles.rowContainer}

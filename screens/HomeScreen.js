@@ -30,7 +30,7 @@ export function HomeScreen({
   const [error, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  //  Retrieve user's preferred darkMode setting AsyncStorage
+  //  Retrieve user's preferred darkMode setting from AsyncStorage
   useEffect(() => {
     async function retrieveUserSetting() {
       try {
