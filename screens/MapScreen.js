@@ -11,9 +11,10 @@ import {
   DEFAULT_LON_DELT
 } from "../constants/Config";
 
-export function MapScreen({ navigation, places }) {
+export function MapScreen({ navigation, places, darkMode }) {
   let selected = navigation.getParam("place");
 
+  console.log(darkMode);
   const animate = data => {
     mapView.root.animateToRegion(data, 2000);
   };
@@ -42,6 +43,9 @@ export function MapScreen({ navigation, places }) {
         style={styles.map}
         ref={ref => (mapView = ref)}
         testID="map-view"
+        clusterColor={darkMode ? "#082016" : "#F5F5F5"}
+        clusterTextColor={darkMode ? "rgba(37, 204, 247, 1)" : "#FF5252"}
+        clusterBorderColor={darkMode ? "rgba(37, 204, 247, 1)" : "#FF5252"}
       >
         {places.map(place => (
           <Marker
@@ -74,7 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  places: state.places.data
+  places: state.places.data,
+  darkMode: state.darkMode.isEnabled
 });
 
 export default connect(mapStateToProps)(MapScreen);
