@@ -44,6 +44,7 @@ export function HomeScreen({
   }, []);
 
   // determine darkmode icon name
+  let darkModeIcon;
   if (darkMode) {
     darkModeIcon = Platform.OS === "ios" ? "ios-sunny" : "md-sunny";
   } else {
@@ -62,14 +63,19 @@ export function HomeScreen({
         setError(true);
       } else {
         setLoading(true);
-        const geoData = await Location.getCurrentPositionAsync({
-          enableHighAccuracy: true
-        });
-        setLocation({
-          latitude: geoData.coords.latitude,
-          longitude: geoData.coords.longitude
-        });
-        setLoading(false);
+        try {
+          const geoData = await Location.getCurrentPositionAsync({
+            enableHighAccuracy: true
+          });
+          setLocation({
+            latitude: geoData.coords.latitude,
+            longitude: geoData.coords.longitude
+          });
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
       }
     }
     findCurrentLocation();
