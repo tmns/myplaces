@@ -2,7 +2,7 @@ import { AsyncStorage } from "react-native";
 
 const setUserSetting = async darkMode => {
   try {
-    await AsyncStorage.setItem("darkmode", darkMode.toString());
+    await AsyncStorage.setItem("darkmode", JSON.stringify(darkMode));
   } catch (err) {
     console.log(err);
   }

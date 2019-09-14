@@ -35,11 +35,7 @@ export function HomeScreen({
     async function retrieveUserSetting() {
       try {
         const userDarkMode = await AsyncStorage.getItem("darkmode");
-        if (userDarkMode === "true") {
-          setDarkMode(true);
-        } else {
-          setDarkMode(false);
-        }
+        setDarkMode(JSON.parse(userDarkMode));
       } catch (err) {
         console.log(err);
       }
