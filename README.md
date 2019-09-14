@@ -1,6 +1,6 @@
 # MyPlaces
 
-![]()
+![demo](https://github.com/tmns/myplaces/raw/master/demo/demo.gif)
 
 ## Table of Contents
 * [Intro](#intro)
