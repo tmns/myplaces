@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 20,
     color: "rgba(96,100,109, 1)",
     lineHeight: 24,
     textAlign: "center"

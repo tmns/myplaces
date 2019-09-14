@@ -14,7 +14,6 @@ import {
 export function MapScreen({ navigation, places, darkMode }) {
   let selected = navigation.getParam("place");
 
-  console.log(darkMode);
   const animate = data => {
     mapView.root.animateToRegion(data, 2000);
   };
