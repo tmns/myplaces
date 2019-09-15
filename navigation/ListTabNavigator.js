@@ -46,7 +46,7 @@ ListStack.navigationOptions = {
   )
 };
 
-ListStack.path = "";
+ListStack.path = "list";
 
 const MapStack = createStackNavigator(
   {
@@ -65,13 +65,13 @@ MapStack.navigationOptions = {
   )
 };
 
-MapStack.path = "";
+MapStack.path = "map/:place";
 
 const tabNavigator = createBottomTabNavigator({
   ListStack,
   MapStack
 });
 
-tabNavigator.path = "";
+tabNavigator.path = "dashboard";
 
 export default tabNavigator;
