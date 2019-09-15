@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from "react-native";
+import { SearchBar } from "react-native-elements";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -25,6 +26,9 @@ export function ListScreen({
 }) {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  // A state of all places are kept local to the component for filtering search results
+  const [allPlaces, setAllPlaces] = useState(false); 
+  const [search, setSearch] = useState("");
 
   // Attempt to fetch places from API endpoint and store them in Redux
   // 1) Fetch places from API endpoint
@@ -62,7 +66,8 @@ export function ListScreen({
             return 0;
           });
         }
-        setPlaces(sortedData);
+        setAllPlaces(sortedData); // local
+        setPlaces(sortedData); // redux
       } catch (err) {
         console.log(err);
         setError(true);
@@ -73,8 +78,37 @@ export function ListScreen({
     fetchPlaces();
   }, []);
 
+  const updateSearch = search => {
+    setSearch(search);
+  };
+
+  // Filter displayed results based on search query
+  useEffect(() => {
+    if (allPlaces) {
+      setPlaces(
+        allPlaces.filter(place =>
+          place.address.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search]);
+
   return (
     <View style={darkMode ? styles.containerDark : styles.container}>
+      <SearchBar
+        placeholder="Search places..."
+        onChangeText={updateSearch}
+        value={search}
+        containerStyle={
+          darkMode ? styles.searchContainerDark : styles.searchContainer
+        }
+        inputContainerStyle={
+          darkMode
+            ? styles.searchInputContainerDark
+            : styles.searchInputContainer
+        }
+        inputStyle={styles.searchInput}
+      />
       {isLoading && (
         <View style={{ flex: 1, padding: 20 }}>
           <ActivityIndicator />
@@ -121,13 +155,36 @@ ListScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: "#fff"
   },
   containerDark: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: "#000"
+  },
+  searchContainer: {
+    backgroundColor: "#fff",
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    marginLeft: 10,
+    marginTop: 10,
+    marginRight: 10,
+    borderRadius: 4,
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#CCC",
+    shadowOpacity: 1.0,
+    shadowRadius: 1
+  },
+  searchInputContainer: {
+    backgroundColor: "#fff"
+  },
+  searchContainerDark: {
+    backgroundColor: "#000"
+  },
+  searchInputContainerDark: {
+    backgroundColor: "#082016"
+  },
+  searchInput: {
+    color: "rgba(96,100,109, 1)"
   },
   itemAddress: {
     textAlign: "center",
