@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { View, StyleSheet } from "react-native";
 import MapView from "react-native-map-clustering";
@@ -12,7 +12,12 @@ import {
 } from "../constants/Config";
 
 export function MapScreen({ navigation, places, darkMode }) {
+  const [mapReady, setMapReady] = useState(false);
   let selected = navigation.getParam("place");
+
+  const handleMapReady = () => {
+    setMapReady(true);
+  }
 
   const animate = data => {
     mapView.root.animateToRegion(data, 2000);
@@ -20,7 +25,7 @@ export function MapScreen({ navigation, places, darkMode }) {
 
   // Call animate function every time user selects a place
   useEffect(() => {
-    if (selected) {
+    if (selected && mapReady) {
       animate({
         latitude: parseFloat(selected.latitude) || DEFAULT_LAT,
         longitude: parseFloat(selected.longitude) || DEFAULT_LON,
@@ -28,7 +33,7 @@ export function MapScreen({ navigation, places, darkMode }) {
         longitudeDelta: 1
       });
     }
-  }, [selected]);
+  }, [mapReady, selected]);
 
   return (
     <View style={styles.container}>
@@ -39,6 +44,7 @@ export function MapScreen({ navigation, places, darkMode }) {
           latitudeDelta: DEFAULT_LAT_DELT,
           longitudeDelta: DEFAULT_LON_DELT
         }}
+        onMapReady={handleMapReady}
         style={styles.map}
         ref={ref => (mapView = ref)}
         testID="map-view"
