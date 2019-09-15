@@ -219,13 +219,9 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode.isEnabled
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      setPlaces
-    },
-    dispatch
-  );
+const mapDispatchToProps = {
+  setPlaces
+}
 
 export default connect(
   mapStateToProps,
