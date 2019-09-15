@@ -17,7 +17,8 @@ More specifically, the app allows you to:
 * View points of interest in a map
 * Sort points of interest based on proximity (if location permissions are granted)
 * Sort points of interest alphabetically (if location permissions are not granted)
-* **Bonus:** Tap on a point of interest in your list and be taken to its location on the map.
+* **Bonus:** Tap on a point of interest in your list and be taken to its location on the map
+* **Bonus:** Search points of interest in your list
 * **Bonus:** Dark mode!
 
 ## Install
