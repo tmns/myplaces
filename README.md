@@ -9,7 +9,7 @@
 * [Test](#test)
 
 ## Intro
-MyPlaces is a mobile application (Android & iOS) that allows you to view points of interest around you. The app retrieves points of interest from an API endpoint and sorts them into a list. Additionally, the app features an integrated [Google map](https://github.com/venits/react-native-map-clustering) that allows you to better visualize exactly where your places are located. It is built with the help of React Native and Expo. 
+MyPlaces is a mobile application (Android & iOS) that allows you to view points of interest around you. The app retrieves points of interest from an API endpoint and sorts them into a list. Additionally, the app features an integrated [Google map](https://github.com/venits/react-native-map-clustering) that allows you to better visualize exactly where your places are located. It is built with the help of React Native, Redux, and Expo. 
 
 More specifically, the app allows you to:
 
