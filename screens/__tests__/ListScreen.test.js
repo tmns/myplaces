@@ -28,6 +28,26 @@ describe("<ListScreen />", () => {
     expect(queryByTestId("list-container")).toBeTruthy();
   });
 
+  it("renders the search container", () => {
+    fetch.mockResponse(
+      JSON.stringify([
+        {
+          id: "1",
+          latitude: "23",
+          longitude: "43",
+          address: "Test Address 1"
+        }
+      ])
+    );
+    const location = { longitude: 23, latitude: 53 };
+    const setPlaces = jest.fn();
+    const { queryByTestId } = render(
+      <ListScreen granted={true} location={location} setPlaces={setPlaces} />
+    );
+
+    expect(queryByTestId("search-container")).toBeTruthy();
+  });
+
   it("makes a fetch call for API places data", () => {
     fetch.mockResponse(
       JSON.stringify([
@@ -70,7 +90,12 @@ describe("<ListScreen />", () => {
     const location = { longitude: 23, latitude: 53 };
     const setPlaces = jest.fn();
     const { queryByTestId } = render(
-      <ListScreen granted={true} location={location} setPlaces={setPlaces} places={places} />
+      <ListScreen
+        granted={true}
+        location={location}
+        setPlaces={setPlaces}
+        places={places}
+      />
     );
 
     expect(queryByTestId("list-item")).toBeTruthy();
@@ -98,7 +123,12 @@ describe("<ListScreen />", () => {
     const location = { longitude: 23, latitude: 53 };
     const setPlaces = jest.fn();
     const { queryByTestId } = render(
-      <ListScreen granted={true} location={location} setPlaces={setPlaces} places={places} />
+      <ListScreen
+        granted={true}
+        location={location}
+        setPlaces={setPlaces}
+        places={places}
+      />
     );
 
     expect(queryByTestId("item-address")).toBeTruthy();
@@ -126,7 +156,12 @@ describe("<ListScreen />", () => {
     const location = { longitude: 23, latitude: 53 };
     const setPlaces = jest.fn();
     const { queryByTestId } = render(
-      <ListScreen granted={true} location={location} setPlaces={setPlaces} places={places} />
+      <ListScreen
+        granted={true}
+        location={location}
+        setPlaces={setPlaces}
+        places={places}
+      />
     );
 
     expect(queryByTestId("item-distance")).toBeTruthy();
@@ -155,9 +190,15 @@ describe("<ListScreen />", () => {
     const setPlaces = jest.fn();
     const navigation = {
       navigate: jest.fn()
-    }
+    };
     const { queryByTestId } = render(
-      <ListScreen granted={true} location={location} setPlaces={setPlaces} places={places} navigation={navigation} />
+      <ListScreen
+        granted={true}
+        location={location}
+        setPlaces={setPlaces}
+        places={places}
+        navigation={navigation}
+      />
     );
 
     fireEvent.press(queryByTestId("list-item"));

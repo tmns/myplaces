@@ -108,6 +108,7 @@ export function ListScreen({
             : styles.searchInputContainer
         }
         inputStyle={styles.searchInput}
+        testID="search-container"
       />
       {isLoading && (
         <View style={{ flex: 1, padding: 20 }}>
