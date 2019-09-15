@@ -27,7 +27,7 @@ export function ListScreen({
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   // A state of all places are kept local to the component for filtering search results
-  const [allPlaces, setAllPlaces] = useState(false);
+  const [allPlaces, setAllPlaces] = useState([]);
   const [search, setSearch] = useState("");
 
   // Attempt to fetch places from API endpoint and store them in Redux
