@@ -29,11 +29,11 @@ $ npm install
 This will install the required dependencies. From there, you can build and run the app.
 
 ## Run
-To build and run the app for both iOS and Android, `cd` to project root and run:
+To run the app for both iOS and Android, `cd` to project root and run:
 ```
 $ npm start
 ```
-This will run `expo start` under the hood, which spins up expo's development server with live reloading, allowing you to run and bundle the app, continue to develop, and see your changes take effect live.
+This will run `expo start` under the hood, which spins up expo's development server with live reloading, allowing you to bundle the app, run it on your phone, continue to develop, and see your changes take effect live.
 
 ## Test
 This application relies on Jest and the React Native Testing Library for testing. To run all tests, `cd` to project root and run:
