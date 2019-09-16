@@ -5,7 +5,6 @@ import { Platform } from "react-native";
 import React, { useState, useEffect } from "react";
 import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import {
   Image,
   ScrollView,

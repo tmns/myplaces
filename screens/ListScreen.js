@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import { ListItem } from "../components/ListItem";
 import { PLACES_URL } from "../constants/Config";
