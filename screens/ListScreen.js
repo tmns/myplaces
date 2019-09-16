@@ -100,9 +100,7 @@ export function ListScreen({
         onChangeText={updateSearch}
         value={search}
         containerStyle={
-          darkMode 
-            ? styles.searchContainerDark 
-            : styles.searchContainer
+          darkMode ? styles.searchContainerDark : styles.searchContainer
         }
         inputContainerStyle={
           darkMode
@@ -124,6 +122,7 @@ export function ListScreen({
         </Text>
       )}
       <FlatList
+        keyboardShouldPersistTaps="handled"
         testID="list-container"
         data={places}
         renderItem={({ item }) => (
@@ -221,7 +220,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setPlaces
-}
+};
 
 export default connect(
   mapStateToProps,
