@@ -91,6 +91,11 @@ export function HomeScreen({
             accessibility={true}
             accessibilityLabel="Tap me to toggle dark mode!"
             onPress={async () => {
+              try {
+                await AsyncStorage.setItem("darkmode", JSON.stringify(!darkMode));
+              } catch (err) {
+                console.log(err);
+              }
               setDarkMode(!darkMode);
             }}
             testID="set-darkmode-btn"
